@@ -318,8 +318,8 @@ def getMostVotedBonusAnswer(server, today):
     if users =="":
         return #jezeli nie ma userow to przerywamy
     
-    sql = f"SELECT vote, COUNT(vote) FROM Users_bonus_votes WHERE user_id IN ({users[:-2]}) AND bonus_id = {getServerTodayBonus(server.discord_server_id,today)} GROUB BY vote ORDER BY COUNT(vote) DESC LIMIT 3"
-    sql2 = f"SELECT COUNT(vote) FROM Users_bonus_votes WHERE user_id IN ({users[:-2]}) AND bonus_id = {getServerTodayBonus(server.discord_server_id, today)}"
+    sql = f"SELECT vote, COUNT(vote) FROM Users_bonus_votes WHERE user_id IN ({users[:-2]}) AND bonus_id = {getServerTodayBonus(server.discord_server_id,today)[0]} GROUB BY vote ORDER BY COUNT(vote) DESC LIMIT 3"
+    sql2 = f"SELECT COUNT(vote) FROM Users_bonus_votes WHERE user_id IN ({users[:-2]}) AND bonus_id = {getServerTodayBonus(server.discord_server_id, today)[0]}"
     query = selectQuery(sql)
     query2 = selectQuery(sql2)
     
