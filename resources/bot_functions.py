@@ -73,7 +73,7 @@ def createVotingResultEmbed(server ,today):
 
     for match in results: # przejscie po kazdym meczu i ustalenie liczby glosow na niego
         for team in results[match]:
-            results[match][team] = db.getAmountOfVotes(users_string_for_query,team)
+            results[match][team] = db.getAmountOfVotes(users_string_for_query,team,match.match_id)
 
     for match in results: # przejscie po kazdym meczu i tworzenie wiadoomosci
         match_votes=[] # ponowne deklarowanie match_votes i match_pints co iteracje dla kazdego meczu 

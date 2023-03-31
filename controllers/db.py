@@ -162,10 +162,10 @@ def getUsersFromServer(server):
     return users
 
 #getAmountOfVotes zwraca ilosc glosow na dany team / mecz uzytkownikow z danego servera
-def getAmountOfVotes(users,team_short):
+def getAmountOfVotes(users,team_short, match_id):
     if users == "":
         return 0
-    return selectQuery(f"SELECT COUNT(vote) FROM Users_votes WHERE vote = '{team_short}' AND user_id IN ({users[:-2]})")[0][0]
+    return selectQuery(f"SELECT COUNT(vote) FROM Users_votes WHERE vote = '{team_short}' AND user_id IN ({users[:-2]}) AND match_id = {match_id}")[0][0]
 
 #updateMatchWinner uzywamy głownie w modelsach, zmienia winnera meczu
 def updateMatchWinner(match):
