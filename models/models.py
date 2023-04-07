@@ -249,10 +249,16 @@ class BonusAnswerModal(discord.ui.Modal, title= "Bonus answer"):
 			await interaction.user.send(embed = bot_functions.f_embed("We have a problem 🤖", f"Available answers for today bonus\n {bot_functions.availableBonusAnswer(bonus_details[1])}",const.color_red))
 		else:#wysylamy potwierdzenie
 			try:
-				await self.bot.get_channel(int(server.channel)).send(embed=bot_functions.f_embed("Correct answer(s) for today bonus:",f"{', '.join(answers)}", const.color_basic))
+				
 				description = f"**{', '.join(answers)}**"
 				description += db.getMostVotedBonusAnswer(server, today)
-				await interaction.user.send(embed = bot_functions.f_embed("Answer(s) you chose as correct for today bonus:", description,const.color_admin))
+				try:
+					await self.bot.get_channel(int(server.channel)).send(embed=bot_functions.f_embed("Correct answer(s) for today bonus:",description, const.color_basic))
+					await interaction.user.send(embed = bot_functions.f_embed("Answer(s) you chose as correct for today bonus:", description ,const.color_admin))
+				except Exception as e:
+					print(e)
+					await self.bot.get_channel(int(server.channel)).send(embed=bot_functions.f_embed("Correct answer(s) for today bonus:",f"**{', '.join(answers)}**", const.color_basic))
+					await interaction.user.send(embed = bot_functions.f_embed("Answer(s) you chose as correct for today bonus:", f"**{', '.join(answers)}**" ,const.color_admin))
 			except Exception as e:
 				print("Bonus Answer error: ",e)
 
